@@ -7,6 +7,10 @@ pipeline {
                     url: 'https://github.com/Madhuri-chinta/game-of-life.git'    
             }
         }
-
+        stage('package')
+            steps {
+                sh 'export PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:$PATH"'
+                sh 'mvn package'
+            }
     }
 }
