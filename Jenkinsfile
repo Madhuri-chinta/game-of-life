@@ -4,9 +4,9 @@ pipeline {
         stage('vcs') {
             steps {
                 git branch : 'master',
-                    url: 'https://github.com/jenkinsci/platformlabeler-plugin.git'    
+                    url: 'https://github.com/Madhuri-chinta/game-of-life.git'    
             }
         }
-        
+
     }
 }
