@@ -7,10 +7,13 @@ pipeline {
                     url: 'https://github.com/Madhuri-chinta/game-of-life.git'    
             }
         }
-        stage('package') {
+        stage('sonarqube') {
             steps {
-                sh """export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH"""
-            }
+                withSonarQubeEnv('madhuri') {
+                    sh """export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH
+                             mvn clean package sonar:sonar"""
+                }
+            }   
         }
     }
 }
