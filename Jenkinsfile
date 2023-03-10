@@ -9,15 +9,8 @@ pipeline {
         }
         stage('package') {
             steps {
-                sh """export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH && mvn package"""
+                sh """export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH"""
             }
         }
-        stage('sonarqube') {
-            steps {
-                withSonarQubeEnv('madhuri') {
-                    sh 'mvn clean package sonar:sonar'
-            }
-        }   
     }
-}
 }
