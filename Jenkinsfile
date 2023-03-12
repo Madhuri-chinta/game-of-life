@@ -9,21 +9,17 @@ pipeline {
         }
         stage('path') {
             steps {
-                sh """export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH"""
+                sh """export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH && mvn package"""
                 }
         }
-        stage('package') {
-            steps {
-                sh  'mvn package'
-                }
-        }
+        
         stage ('Artifactory configuration') {
             steps {
                 rtMavenDeployer (
-                    id: "jfrog",
-                    serverId: "madhuri",
-                    releaseRepo: "libs-release-local",
-                    snapshotRepo: "libs-snapshot-local"
+                    id: 'jfrog',
+                    serverId: 'madhuri',
+                    releaseRepo: 'libs-release-local',
+                    snapshotRepo: 'libs-snapshot-local'
                 )
             }
         }
@@ -31,10 +27,10 @@ pipeline {
         stage ('Exec Maven') {
             steps {
                 rtMavenRun (
-                    tool: "MAVEN_GOAL", // Tool name from Jenkins configuration
+                    tool: 'MAVEN_GOAL', // Tool name from Jenkins configuration
                     pom: 'pom.xml',
                     goals: 'clean install',
-                    deployerId: "jfrog"
+                    deployerId: 'jfrog'
                 )
             }
         }
@@ -42,7 +38,7 @@ pipeline {
         stage ('Publish build info') {
             steps {
                 rtPublishBuildInfo (
-                    serverId: "madhuri"
+                    serverId: 'madhuri'
                 )
             }
         }   
