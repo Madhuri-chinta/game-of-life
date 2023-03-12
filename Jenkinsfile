@@ -9,7 +9,7 @@ pipeline {
         }
         stage('path') {
             steps {
-                sh 'mvn package'
+                sh """export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH"""
                 }
         }
         
