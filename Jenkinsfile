@@ -1,56 +1,36 @@
 pipeline {
-    agent any
+    agent { label 'UBUNTU_NODE1'}
     stages {
-        stage('vcs') {
+        stage ('vcs') {
             steps {
-                git branch : 'master',
-                    url: 'https://github.com/Madhuri-chinta/game-of-life.git'    
-            }
-        }
-        stage('path') {
-            steps {
-                sh """export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH && mvn package"""
+                git url: 'https://github.com/wakaleo/game-of-life.git ',
+                    branch: 'master'
                 }
         }
-        
-        stage ('Artifactory configuration') {
+        stage ('build') {    
             steps {
-                rtMavenDeployer (
-                    id: 'jfrog',
-                    serverId: 'madhuri',
-                    releaseRepo: 'libs-release-local',
-                    snapshotRepo: 'libs-snapshot-local'
-                )
+                sh 'export "PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH" && mvn package'
+            }
+
+            }
+        stage ('archiveArtifacts') {
+            steps {
+                archiveArtifacts artifacts: '**/target/gameoflife.war', 
+                                 onlyIfSuccessful: true,
+                                 allowEmptyArchive : false
             }
         }
-
-        stage ('Exec Maven') {
+        stage ('testResults') {
             steps {
-                rtMavenRun (
-                    tool: 'MAVEN_GOAL', // Tool name from Jenkins configuration
-                    pom: 'pom.xml',
-                    goals: 'clean install',
-                    deployerId: 'jfrog'
-                )
-            }
-        }
-
-        stage ('Publish build info') {
-            steps {
-                rtPublishBuildInfo (
-                    serverId: 'madhuri'
-                )
+                junit testResults: '**/surefire-reports/TEST-*.xml',
+                      allowEmptyResults : ture
+            }              
             }
         }   
-        stage('post build') {
-            steps {
-                archiveArtifacts artifacts: '**/target/*.jar',
-                                 onlyIfSuccessful: true
-                junit testResults: '**/surefire-reports/TEST-*.xml'
-            }
-        }
-    }
-}
-
+      }
+   
      
-        
+              
+      
+    
+  
