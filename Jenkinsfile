@@ -12,8 +12,8 @@ pipeline {
         }
         stage ('build') {    
             steps {
-                sh export "PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH"
-                sh  "mvn ${params.MVN_GOAL}"
+                sh export "PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH",
+                sh "mvn ${params.MVN_GOAL}"
             }
 
             }
