@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'UBUNTU_NODE1'}
     // triggers { cron ('*/2 * * * 6') } with cron
-    triggers { pollSCM ('*/2 * * * 6') }
+    // triggers { pollSCM ('*/2 * * * 6') } with pollSCM
     // parameters { string(name: 'MVN_GOAL', defaultValue: 'package', description: 'maven package') } with only one option
     parameters { choice(name: 'MVN_GOAL', choices: ['package', 'install', 'clean package', 'clean test'], description: 'maven') }
     stages {
