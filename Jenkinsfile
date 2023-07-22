@@ -1,5 +1,6 @@
 pipeline {
     agent { label 'UBUNTU_NODE1'}
+    triggers { cron ('*/2 5 * * 6')
     stages {
         stage ('vcs') {
             steps {
