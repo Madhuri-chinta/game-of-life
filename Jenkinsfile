@@ -10,9 +10,13 @@ pipeline {
                     branch: 'master'
                 }
         }
-        stage ('build') {    
+        stage ('build') { 
+            tools {
+                jdk 'JDK_8'
+            }   
             steps {
-                sh 'export "PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH" && "mvn ${params.MVN_GOAL}"'
+                // sh 'export "PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH"'
+                sh "mvn ${params.MVN_GOAL}"
             }
 
             }
