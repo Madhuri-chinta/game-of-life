@@ -37,7 +37,7 @@ pipeline {
             }
         } 
     post {
-        {failure
+        failure {
            mail subject : "Jenkins Build of ${JOB_NAME} with id ${BUILD_ID} is failure",
                 body : "Use this URL ${BUILD_URL} for more info",
                 from : "${GIT_COMMITTER_EMAIL}", // here pass jenkins environmental variable 
