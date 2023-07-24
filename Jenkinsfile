@@ -35,7 +35,21 @@ pipeline {
   
             }              
             }
-        }   
+        } 
+    post {
+        success {
+            emailext: subject : "Jenkins Build of ${JOB_NAME} with id ${BUILD_ID} is success",
+                      body : "Use this URL ${BUILD_URL} for more info",
+                      from : "${GIT_COMMITTER_EMAIL}", // here pass jenkins environmental variable 
+                      to : "${GIT_AUTHOR_EMAIL}" // here also pass jenkins environmental variable 
+        }
+        failure {
+            emailext: subject : "Jenkins Build of ${JOB_NAME} with id ${BUILD_ID} is success",
+                      body : "Use this URL ${BUILD_URL} for more info",
+                      from : 'madhu123@gmail.com',
+                      to : 'sweety123@gmail.com'
+        }
+    }      
       }
    
      
