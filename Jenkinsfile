@@ -21,6 +21,13 @@ pipeline {
             }
 
             }
+        stage ('sonarqube-analysis') {
+            steps {
+                withSonarQubeEnv('My SonarQube Server') {
+                    sh 'mvn clean package sonar:sonar'
+            }
+        }
+        }   
         stage ('archiveArtifacts') {
             steps {
                 archiveArtifacts artifacts: '**/target/gameoflife.war', 
