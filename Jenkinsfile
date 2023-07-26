@@ -21,13 +21,15 @@ pipeline {
             }
 
             }
-        stage ('Sonarqube Analysis') {
-            steps {
-                withSonarQubeEnv('SONAR_CLOUD') {
-                    sh 'mvn clean package sonar:sonar'// -Dsonar.projectKey="Jenkins123" -Dsonar.projectName="Jenkins"
-            }
-        }
-        }   
+        //stage ('Sonarqube Analysis') {
+            //steps {
+                //withSonarQubeEnv('SONAR_CLOUD') {
+                //  sh 'mvn clean package sonar:sonar -Dsonar.projectKey="Jenkins123" -Dsonar.projectName="Jenkins"'
+          //  }
+       // }
+       // } 
+       // Game of life application run with java-8.Sonarqube did not support below Java-11 versions,only support 
+       //from Java-11 to higher versions
         stage ('archiveArtifacts') {
             steps {
                 archiveArtifacts artifacts: '**/target/gameoflife.war', 
