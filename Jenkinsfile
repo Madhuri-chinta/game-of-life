@@ -21,10 +21,10 @@ pipeline {
             }
 
             }
-        stage ('sonarqube-analysis') {
+        stage ('Sonarqube Analysis') {
             steps {
                 withSonarQubeEnv('My SonarQube Server') {
-                    sh 'mvn clean package sonar:sonar'
+                    sh 'mvn clean package sonar:sonar'// -Dsonar.projectKey="Jenkins123" -Dsonar.projectName="Jenkins"
             }
         }
         }   
