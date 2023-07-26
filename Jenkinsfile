@@ -23,7 +23,7 @@ pipeline {
             }
         stage ('Sonarqube Analysis') {
             steps {
-                withSonarQubeEnv('My SonarQube Server') {
+                withSonarQubeEnv('SONAR_CLOUD') {
                     sh 'mvn clean package sonar:sonar'// -Dsonar.projectKey="Jenkins123" -Dsonar.projectName="Jenkins"
             }
         }
