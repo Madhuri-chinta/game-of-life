@@ -21,13 +21,13 @@ pipeline {
             }
 
             }
-        stage ('Sonarqube Analysis') {
-            steps {
-                withSonarQubeEnv('SONAR_CLOUD') {
-                    sh 'mvn clean package sonar:sonar'// -Dsonar.projectKey="Jenkins123" -Dsonar.projectName="Jenkins"
-            }
-        }
-        }   
+        //stage ('Sonarqube Analysis') {
+           // steps {
+               // withSonarQubeEnv('SONAR_CLOUD') {
+                 //   sh 'mvn clean package sonar:sonar'// -Dsonar.projectKey="Jenkins123" -Dsonar.projectName="Jenkins"
+           // }
+       // }
+        //}   
         stage ('archiveArtifacts') {
             steps {
                 archiveArtifacts artifacts: '**/target/gameoflife.war', 
